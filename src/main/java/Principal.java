@@ -196,7 +196,34 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        String query1 = "DELETE FROM curso WHERE (Sigla=";
+        String a = txtSigla.getText();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/dbAula4", "root", "123");
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = query1 + "'" + txtSigla.getText() + "')";
+            JOptionPane.showMessageDialog(null, sql);
+            int i = 0;
+            i = stmt.executeUpdate(sql);
+            int y = 0;
+            stmt.close();
+            y = stmt.CLOSE_CURRENT_RESULT;
+            if (i > 0) {
+                JOptionPane.showMessageDialog(null, "Curso Deletado com Sucesso!");
+                
+                //limpando campos:
+                txtSigla.setText("");
+                txtNome.setText("");
+                txtDesc.setText("");
+                
+                abre_Tabela();
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -255,9 +282,9 @@ public class Principal extends javax.swing.JFrame {
 
     public void atualiza_campos() {
         try {
-            txtSigla.setText("" + rs.getString("sigla"));
+            txtSigla.setText("" + rs.getString("Sigla"));
             txtNome.setText("" + rs.getString("Nome"));
-            txtDesc.setText("" + rs.getString("descricao"));
+            txtDesc.setText("" + rs.getString("Descricao"));
         } catch (SQLException e) {
             System.out.println(e);
         }
