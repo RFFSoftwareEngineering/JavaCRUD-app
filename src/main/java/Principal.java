@@ -159,17 +159,21 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String query1 = "UPDATE curso SET Sigla=";
+        String a = txtSigla.getText();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/dbAula4", "root", "123");
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "INSERT INTO curso VALUES('" + txtSigla.getText() + "','" + txtNome.getText() + "','" + txtDesc.getText() + "')"; 
+            String sql = query1 + "'" + txtSigla.getText() + "'," + "Nome='" + txtNome.getText() + "'WHERE Sigla=" + "'" + txtSigla.getText() + "'";
             JOptionPane.showMessageDialog(null, sql);
             int i = 0;
             i = stmt.executeUpdate(sql); //executa o comando sql
+            int y = 0;
             stmt.close();
+            y = stmt.CLOSE_CURRENT_RESULT;
             if (i >0) {
-                JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Curso alterado com sucesso!");
                 abre_Tabela();
             }
         } catch (ClassNotFoundException e) {
@@ -192,7 +196,24 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/dbAula4", "root", "123");
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "INSERT INTO curso VALUES('" + txtSigla.getText() + "','" + txtNome.getText() + "','" + txtDesc.getText() + "')"; 
+            JOptionPane.showMessageDialog(null, sql);
+            int i = 0;
+            i = stmt.executeUpdate(sql); //executa o comando sql
+            stmt.close();
+            if (i >0) {
+                JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
+                abre_Tabela();
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
