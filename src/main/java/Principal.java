@@ -233,7 +233,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -252,4 +252,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSigla;
     // End of variables declaration//GEN-END:variables
+
+    public void atualiza_campos() {
+        try {
+            txtSigla.setText("" + rs.getString("sigla"));
+            txtNome.setText("" + rs.getString("Nome"));
+            txtDesc.setText("" + rs.getString("descricao"));
+        } catch (SQLException e) {
+            System.out.println(e);;
+        }
+    }
 }
