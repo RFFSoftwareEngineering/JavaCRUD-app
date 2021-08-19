@@ -170,7 +170,7 @@ public class Principal extends javax.swing.JFrame {
             stmt.close();
             if (i >0) {
                 JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
-                //abreTabela();
+                abre_Tabela();
             }
         } catch (ClassNotFoundException e) {
             System.out.println(e);
@@ -259,7 +259,24 @@ public class Principal extends javax.swing.JFrame {
             txtNome.setText("" + rs.getString("Nome"));
             txtDesc.setText("" + rs.getString("descricao"));
         } catch (SQLException e) {
-            System.out.println(e);;
+            System.out.println(e);
+        }
+    }
+    
+    public void abre_Tabela() {
+        String query1 = "Select * from curso";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/dbAula4", "root", "123");
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(query1);
+            rs.first(); //movendo o cursor para o primeiro registro
+            atualiza_campos();
+            //conteudo da coluna sigla
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 }
